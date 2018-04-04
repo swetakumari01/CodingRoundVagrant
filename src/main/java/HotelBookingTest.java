@@ -5,7 +5,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.sun.javafx.PlatformUtil;
@@ -33,18 +32,16 @@ public class HotelBookingTest {
 	@FindBy(id = "CheckOutDate")
 	private WebElement checkOutDate;
 
-	@BeforeTest
-	public void init() { // Needs a public method to access the private method
-							// setDriverPath();
+	@Test
+	public void shouldBeAbleToSearchForHotels() {
+
+		// Needs a public method to access the private method
+		// setDriverPath();
 		setDriverPath();
 		driver = new ChromeDriver();
 
 		// This initElements method will create all WebElements
 		PageFactory.initElements(driver, this);
-	}
-
-	@Test
-	public void shouldBeAbleToSearchForHotels() {
 
 		driver.get("https://www.cleartrip.com/");
 		waitFor(3000);
@@ -54,7 +51,7 @@ public class HotelBookingTest {
 		waitFor(1000);
 
 		localityTextBox.sendKeys("Indiranagar, Bangalore");
-		waitFor(1000);
+		waitFor(2000);
 
 		// Select the 1st option
 		localityTextBox.sendKeys(Keys.ENTER);
@@ -67,6 +64,8 @@ public class HotelBookingTest {
 
 		new Select(travellerSelection).selectByVisibleText("1 room, 2 adults");
 		searchButton.click();
+
+		waitFor(5000);
 
 		driver.quit();
 
